@@ -609,7 +609,7 @@ def getJobText(file):
     df = addITSkills(df)
     output = recommend_resumes(df)
     matchedSkills = matched_skills(df, output)
-    files = ["http://localhost:5000/getResume/Resume"+str(x+1)+".pdf" for x in list(output.index)]
+    files = ["https://flask-recommendation.herokuapp.com/getResume/Resume"+str(x+1)+".pdf" for x in list(output.index)]
     out = {}
     # with open('./Resumes/Resume1.pdf') as f:
     #     out['Resume'] = io.BytesIO(f.read())
@@ -793,7 +793,7 @@ def jobForm():
         df = addITSkills(df)
         output = recommend_resumes(df)
         matchedSkills = matched_skills(df, output)
-        files = ["http://localhost:5000/getResume/Resume"+str(x+1)+".pdf" for x in list(output.index)]
+        files = ["https://flask-recommendation.herokuapp.com/getResume/Resume"+str(x+1)+".pdf" for x in list(output.index)]
         out = {}
         # with open('./Resumes/Resume1.pdf') as f:
         #     out['Resume'] = io.BytesIO(f.read())
