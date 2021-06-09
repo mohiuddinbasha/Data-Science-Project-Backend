@@ -36,7 +36,7 @@ def getKey(skills, value):
 # In[4]:
 
 
-def preprocess(IT_Skills):
+def preprocess(IT_Skills, IT_Skills_Experience):
     ITSkills = ['XCBL', 'IDIT', 'CUDA', 'HTML',  'jQuery', 'Ajax', 'HILS', 'One Note', 'iBATIS', 'Flask', 'Citrix', 'NoSQL', 'SQL', 'ISTQB', 'Andriod Studio', 'Glue', 'Paradox', 'WDS', 'Perl', 'TCPDUMP', 'Java', 'FileNet', 'Putty', 'Eroom', 'HIVE', 'Nexus', 'SAP', 'Ado.net', 'Vsphere', 'Unix', 'PyTest', 'Splunk', 'Mokito', 'Balsamiq', 'Eclipse', 'Hibernate', 'JDBC', 'Tableau', 'Power BI', 'TensorFlow', 'Siebel', 'Solution Architecture', 'CANalyser', 'VB.Net', 'Apache', 'SolarWinds', 'J2SE', 'Netbackup', 'Redis','Salesforce', 'Windows', 'Linux', 'XML', 'JDK', 'TOAD', 'DUKPT', 'Gitlab', 'Webmethods', 'Devops', 'IWS Workspace', 'VHDL', 'Verilog', 'Git', 'SVN', 'VMWARE', 'HYBRIS', 'CISCO Packet Tracer', 'SDN', 'NFV', 'Rest API', 'J2EE', 'Solaris', 'GCP', 'PHP', 'DAC', 'Restful Web Services', 'Jenkins', 'MVC', 'QC', 'CSS', 'Selenium', 'Entity Framework', 'JSON', 'ThingWorx', 'NX', 'Log4j', 'Django', 'GO', 'Python', 'LibreOffice', 'Laravel', 'Active Directory', 'Iconic Framework', 'Docker', 'JSP', 'MeteorJS', 'Keil', 'UCSM',  'Minitab', 'DAQ', 'JPA', 'Ansible', 'Netbeans', 'JIRA', 'Ubuntu', 'Postman', 'Tally', 'Sublime', 'Action Script', 'LINQ', 'AEM', 'Telerik', 'ALM', 'Rally', 'AOP', 'APEX', 'API', 'ARM', 'AUTOSYS', 'ATG', 'AWT', 'Swing', 'AXIS', 'AXURE', 'ActiveMQ', 'Activiti', 'Adobe Analytics', 'Adobe Illustrator', 'Help Desk', 'Aerospike', 'Agilent', 'Aginity', 'Akka', 'Aldon', 'Alexa', 'Altiris', 'Android Studio', 'Aptana', 'Assembly', 'Atmega', 'Aurora', 'Auto Scaling', 'AutoSys', 'SAS', 'BMC', 'RDBMS', 'DBMS', 'Spark', 'DevSecOps', 'Beautiful Soup', 'Map Reduce', 'Blender', 'Block Chain', 'Bizagi', 'Blue Prism', 'CANOE', 'CATIA', 'Cordyd BPM', 'CTM', 'Cypress', 'Camunda', 'Cassandra', 'CloudWatch', 'Cloud Taleo', 'Confluence', 'Cosmos', 'CouchDB', 'Cron', 'Crystal Report', 'Crystal Xcelsius', 'Cucumber', 'DDS', 'DGLUX', 'Drupal', 'DT Studio', 'DOXYGEN', 'Data Director', 'Dell Boomi', 'Delphi', 'Discoverer', 'DocApp', 'Dojo', 'ECMAScript', 'EJB', 'ENOVIA', 'ESXI', 'ETL', 'EXTJS', 'Elastic Load Balancing', 'Flutter', 'Kotlin', 'Force.com', 'Fortify', 'Foundation', 'FreeBSD', 'FreeRTOs', 'Gerrit', 'Groovy', 'Gentran Integration suite', 'Gentran EDI suite', 'Glacier', 'Golden Gate', 'Google Cloud', 'GrayLog', 'Greenplum', 'Guidewire', 'Hana', 'HBASE', 'HUDSON', 'HighChart', 'Hiplink', 'Hortonworks', 'IBM BPM', 'IBM Clear Quest', 'IBM Cognos', 'IBM DB2', 'IBM MQ', 'IBM SPSS Modeler', 'IBM Sterling Integrator', 'IBM-WTX', 'IIS', 'Image Processing', 'IntelliJ', 'Installrite', 'Ionic', 'IOS', 'IOT', 'ITEXT', 'ITX', 'Impala', 'Incident Management', 'Informatica', 'Jasper', 'JBOSS', 'JD Edwards', 'JDeveloper', 'JEE', 'JSF', 'JUnit', 'JWT', 'JaCoCo', 'Design Patterns', 'Kibana', 'Loopback', 'Load Runner', 'Magento', 'MATLAB', 'MERN Stack', 'MEAN Stack', 'MQTT', 'MS Visio',  'Management Studio', 'Microsoft Exchange', 'Middleware', 'Numpy', 'Gunicorn', 'Httpd', 'Nifi', 'Scipy', 'Pandas', 'OAuth', 'OBIEE', 'Networking', 'Oozie', 'OpenCV', 'PEGA PRPC', 'PIG', 'Powershell', 'PeopleSoft', 'Perforce', 'Power Automate', 'PyCharm', 'Data Science', 'Cyclone', 'PyTorch', 'QAC', 'QT Creator', 'RPA', 'Redux', 'Remedy', 'SCALA', 'SCCM', 'SITECORE', 'SLES', 'SSIS', 'STRUTS', 'Zendesk', 'Servlet', 'SOAP', 'SOA', 'Sqoop', 'Swagger', 'Sybase', 'Teamcenter', 'Terraform', 'OATS', 'Toad', 'Tortoise', 'UML', 'VMWare', 'WINSCP', 'Websphere', 'Workbench', 'Gradle', 'iReport', 'Oracle']
 
     skills = {}
@@ -153,7 +153,9 @@ def preprocess(IT_Skills):
     Overall_Skills = sorted(Overall_Skills, key = len, reverse=True)
 
     updated_IT_Skills = []
-
+    updated_IT_Skills_Experience = []
+    
+    size = 0
     for IT_Skill in IT_Skills:
         flag = 0
         skill = IT_Skill.lower()
@@ -162,15 +164,22 @@ def preprocess(IT_Skills):
                 key = getKey(skills, i.lower())
                 if key != 'None':
                     updated_IT_Skills.append(key)
+                    if len(IT_Skills_Experience) > 0:
+                        updated_IT_Skills_Experience.append(IT_Skills_Experience[size])
                 else:
                     updated_IT_Skills.append(i)
+                    if len(IT_Skills_Experience) > 0:
+                        updated_IT_Skills_Experience.append(IT_Skills_Experience[size])
                 flag = 1
                 skill = skill.replace(i.lower(),'')
             if len(skill) == 0:
                 break
         if flag == 0:
             updated_IT_Skills.append(IT_Skill)
-    return updated_IT_Skills
+            if len(IT_Skills_Experience) > 0:
+                updated_IT_Skills_Experience.append(IT_Skills_Experience[size])
+        size += 1
+    return updated_IT_Skills,updated_IT_Skills_Experience
 
 
 # In[6]:
@@ -484,8 +493,9 @@ def getResumeText(file):
         if j not in resume:
             resume[j] = 'None'
     
-    updated_IT_Skills = preprocess(resume['IT Skills'].split(','))
+    updated_IT_Skills,updated_IT_Skills_Experience = preprocess(resume['IT Skills'].split(','),resume['IT Skills Experience'].split(','))
     resume['IT Skills'] = ",".join(updated_IT_Skills) #Logic change
+    resume['IT Skills Experience'] = ",".join(updated_IT_Skills_Experience)
     df = df.append(resume, ignore_index = True)
     output = recommend_jobs(df)
     matchedSkills = matched_skills(df, output)
@@ -599,7 +609,7 @@ def getJobText(file):
     df = addITSkills(df)
     output = recommend_resumes(df)
     matchedSkills = matched_skills(df, output)
-    files = ["https://flask-recommendation.herokuapp.com/getResume/Resume"+str(x+1)+".pdf" for x in list(output.index)]
+    files = ["http://localhost:5000/getResume/Resume"+str(x+1)+".pdf" for x in list(output.index)]
     out = {}
     # with open('./Resumes/Resume1.pdf') as f:
     #     out['Resume'] = io.BytesIO(f.read())
@@ -671,7 +681,6 @@ def getResume(resume_filename):
 def sampleResume():
     arr = [1,2,5,7,11,12,18,21,30,44]
     resume_filename = 'Resume'+str(arr[random.randint(1,10)-1])+'.pdf'
-    print(resume_filename)
     try:
         s3 = boto3.resource(service_name='s3',region_name='us-east-2',aws_access_key_id=os.getenv('aws_access_key_id'),aws_secret_access_key=os.getenv('aws_secret_access_key'))
         s3.Bucket('recommendation-system-1').download_file(Filename='Resume.pdf',Key=resume_filename)
@@ -684,7 +693,6 @@ def sampleResume():
 @cross_origin()
 def sampleJob():
     job_filename = str(random.randint(1,10))+'.json'
-    print(job_filename)
     try:
         s3 = boto3.resource(service_name='s3',region_name='us-east-2',aws_access_key_id=os.getenv('aws_access_key_id'),aws_secret_access_key=os.getenv('aws_secret_access_key'))
         s3.Bucket('recommendation-system-1').download_file(Filename='Job.json',Key=job_filename)
@@ -738,9 +746,11 @@ def resumeForm():
         resume['Work Experience'] = data['workExperience']
         resume['IT Skills'] = data['IT_Skills']
         resume['Languages Known'] = data['languages']
-
-        updated_IT_Skills = preprocess(resume['IT Skills'].split(','))
-        resume['IT Skills'] = ",".join(updated_IT_Skills)
+        
+        updated_IT_Skills,updated_IT_Skills_Experience = preprocess(resume['IT Skills'].split(','),resume['IT Skills Experience'].split(','))
+        resume['IT Skills'] = ",".join(updated_IT_Skills) #Logic change
+        resume['IT Skills Experience'] = ",".join(updated_IT_Skills_Experience)
+        
         df = df.append(resume, ignore_index = True)
         output = recommend_jobs(df)
         matchedSkills = matched_skills(df, output)
@@ -776,14 +786,14 @@ def jobForm():
         job['UG'] = data['ug']
         job['PG'] = data['pg']
         job['Doctorate'] = data['doctorate']
-        job['Key Skills'] = ",".join(preprocess(data['IT_Skills'].split(',')))
+        job['Key Skills'] = ",".join(preprocess(data['IT_Skills'].split(','),[])[0])
 
         df = pd.DataFrame(columns=columns)
         df = df.append(job, ignore_index=True)
         df = addITSkills(df)
         output = recommend_resumes(df)
         matchedSkills = matched_skills(df, output)
-        files = ["https://flask-recommendation.herokuapp.com/getResume/Resume"+str(x+1)+".pdf" for x in list(output.index)]
+        files = ["http://localhost:5000/getResume/Resume"+str(x+1)+".pdf" for x in list(output.index)]
         out = {}
         # with open('./Resumes/Resume1.pdf') as f:
         #     out['Resume'] = io.BytesIO(f.read())
